@@ -1,0 +1,10 @@
+node_modules
+.next
+data/*.db
+data/*.db-*
+data/avatars/*
+!data/avatars/.gitkeep
+.env
+.env.local
+*.log
+.DS_Store
