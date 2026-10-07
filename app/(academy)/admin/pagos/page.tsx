@@ -1,17 +1,19 @@
 import { membershipStatusAction } from "@/lib/actions/admin";
 import { getSettings, listStudents, listTransactions } from "@/lib/db";
+import { currentOffer } from "@/lib/offer";
 import { formatWhen, membershipLabel, money } from "@/lib/format";
 
 export const metadata = { title: "Pagos admin" };
 
 export default function AdminPagosPage() {
   const settings = getSettings();
+  const offer = currentOffer();
   const students = listStudents();
   const txs = listTransactions();
   return (
     <div className="space-y-6">
       <h1 className="font-serif text-5xl">Pagos</h1>
-      <p className="text-mute">Precio público actual: inscripción {money(settings.entry_price_cents)} y mensualidad {money(settings.monthly_price_cents)}. Cámbialos en configuración; no reescribe planes ya activos.</p>
+      <p className="text-mute">Oferta de inscripción {money(offer.priceCents)} sobre un valor de {money(offer.listCents)}. Quedan {offer.left} de {offer.seats}. Mensualidad {money(settings.monthly_price_cents)}. Cambiarlos en configuración no reescribe planes ya activos.</p>
       {students.map((student) => (
         <form key={student.id} action={membershipStatusAction} className="card flex flex-wrap items-center gap-3">
           <input type="hidden" name="user_id" value={student.id} />

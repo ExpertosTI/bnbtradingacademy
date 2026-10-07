@@ -17,11 +17,11 @@ export default async function CursosPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <p className="eyebrow">Campus</p>
-        <h1 className="mt-2 font-serif text-5xl">Tu ruta</h1>
-        <p className="mt-3 max-w-2xl text-mute">Cada nivel se abre al aprobar el anterior. Las lecciones quedan registradas. El examen no aparece por un enlace de WhatsApp.</p>
-      </div>
+        <div>
+          <p className="eyebrow">Campus</p>
+          <h1 className="mt-2 font-serif text-5xl md:text-7xl">Tu ruta</h1>
+          <p className="mt-4 max-w-2xl text-mute">Cada nivel se abre al aprobar el anterior. Las lecciones quedan registradas. El examen no aparece por un enlace de WhatsApp.</p>
+        </div>
       {!open && user.role === "student" && (
         <p className="card">El contenido se abre con la inscripción. <Link className="text-gold" href="/checkout">Completar el pago</Link></p>
       )}
@@ -38,12 +38,13 @@ export default async function CursosPage() {
                 {unlocked ? <Check size={16} /> : <Lock size={14} />}
               </span>
               <div className="card">
-                <div className="flex flex-wrap items-start justify-between gap-3">
+                <div className="flex flex-wrap items-end justify-between gap-4">
                   <div>
-                    <h2 className="font-serif text-3xl">{level.name}</h2>
+                    <p className="font-serif text-4xl italic text-gold/70">{String(level.sort_order).padStart(2, "0")}</p>
+                    <h2 className="mt-1 font-serif text-3xl md:text-4xl">{level.name}</h2>
                     <p className="mt-2 max-w-2xl text-mute">{level.summary}</p>
                   </div>
-                  <p className="font-mono text-sm text-gold">{unlocked ? `${pct}%` : "Cerrado"}</p>
+                  <p className="font-mono text-sm uppercase tracking-[0.16em] text-gold">{unlocked ? `${pct}%` : "Cerrado"}</p>
                 </div>
                 {unlocked && <div className="progress-bar mt-5"><span style={{ width: `${pct}%` }} /></div>}
                 <ul className="mt-5 divide-y divide-white/5">

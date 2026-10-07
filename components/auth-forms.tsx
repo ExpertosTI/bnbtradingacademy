@@ -8,7 +8,7 @@ const initial: FormState = { error: "" };
 export function LoginForm({ next }: { next: string }) {
   const [state, action] = useActionState(loginAction, initial);
   return (
-    <form action={action} className="card space-y-4">
+    <form action={action} className="card frame space-y-4">
       <input type="hidden" name="next" value={next} />
       <label className="block">
         <span className="label">Correo</span>
@@ -27,7 +27,7 @@ export function LoginForm({ next }: { next: string }) {
 export function RegisterForm() {
   const [state, action] = useActionState(registerAction, initial);
   return (
-    <form action={action} className="card space-y-5">
+    <form action={action} className="card frame space-y-5">
       <label className="block">
         <span className="label">Nombre</span>
         <input className="field" name="name" required />

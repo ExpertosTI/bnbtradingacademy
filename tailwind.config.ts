@@ -5,14 +5,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#09090b",
-        panel: "#121214",
-        cream: "#f3efe4",
-        mute: "#a39e93",
-        gold: "#c6a15b",
-        gold2: "#e7d3a1",
-        good: "#8fd0a8",
-        bad: "#e07a6a",
+        ink: "#050506",
+        panel: "#0a0a0c",
+        cream: "#f2f2f2",
+        mute: "#8d8d96",
+        gold: "#d4d4d8",
+        gold2: "#fafafa",
+        good: "#3ddc97",
+        bad: "#ff5d5d",
       },
       fontFamily: {
         sans: ["Outfit", "sans-serif"],

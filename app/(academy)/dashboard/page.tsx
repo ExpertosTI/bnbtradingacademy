@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Countdown } from "@/components/countdown";
+import { OfferPanel } from "@/components/offer-panel";
+import { Reveal } from "@/components/reveal";
 import { getCurrentUser } from "@/lib/auth";
 import {
   academicLevel,
@@ -42,16 +44,18 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <section className="card overflow-hidden">
+      {user.role === "student" && !paid && <OfferPanel />}
+      <Reveal>
+      <section className="frame card overflow-hidden">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
             <p className="eyebrow">Campus</p>
-            <h1 className="mt-3 font-serif text-5xl md:text-6xl">Hola, {user.name.split(" ")[0]}.</h1>
-            <p className="mt-3 text-mute">{experienceLabel(user.experience)} · {currentLevelLabel(user)}</p>
+            <h1 className="mt-3 text-5xl font-medium tracking-[-0.05em] md:text-6xl">Hola, {user.name.split(" ")[0]}.</h1>
+            <p className="mt-4 text-mute">{experienceLabel(user.experience)} · {currentLevelLabel(user)}</p>
           </div>
           <div className="text-right">
-            <p className="font-serif text-5xl text-gold2">{pct}%</p>
-            <p className="text-sm text-mute">ruta académica</p>
+            <p className="font-mono text-6xl text-good">{pct}%</p>
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-mute">de la ruta</p>
           </div>
         </div>
         <div className="progress-bar mt-8">
@@ -63,21 +67,22 @@ export default async function DashboardPage() {
           <Link className="btn-ghost" href="/live">Mesa en vivo</Link>
         </div>
       </section>
+      </Reveal>
 
-      <ol className="grid gap-2 md:grid-cols-5">
+      <ol className="relative grid gap-2 md:grid-cols-5">
         {steps.map((step, index) => (
           <li key={step.id}>
-            <Link href={step.href} className={`glass flex h-full flex-col justify-between p-4 ${step.done ? "border-gold/40" : ""}`}>
-              <p className="font-mono text-[10px] text-gold">{String(index + 1).padStart(2, "0")}</p>
-              <p className="mt-4 font-medium">{step.label}</p>
-              <p className="mt-1 text-xs text-mute">{step.done ? "Completado" : "Pendiente"}</p>
+            <Link href={step.href} className={`glass flex h-full flex-col justify-between p-4 ${step.done ? "border-gold/50 bg-gold/[0.06]" : ""}`}>
+              <p className="font-serif text-2xl italic text-gold">{String(index + 1).padStart(2, "0")}</p>
+              <p className="mt-6 font-medium">{step.label}</p>
+              <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.16em] text-mute">{step.done ? "Completado" : "Pendiente"}</p>
             </Link>
           </li>
         ))}
       </ol>
 
       <section className="grid gap-4 lg:grid-cols-2">
-        <article className="card">
+        <article className="frame card">
           <div className="flex items-center justify-between">
             <p className="eyebrow">Mesa</p>
             {live.state === "live" && <span className="inline-flex items-center gap-2 text-xs text-bad"><span className="live-dot" /> En horario</span>}

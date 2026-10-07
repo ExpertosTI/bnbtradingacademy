@@ -36,9 +36,9 @@ export function AppShell({
 
   return (
     <div className="relative z-10 mx-auto min-h-screen max-w-[1440px] lg:grid lg:grid-cols-[240px_1fr]">
-      <aside className="hidden border-r border-white/10 px-4 py-6 lg:flex lg:flex-col">
-        <Link href="/dashboard" className="px-2 font-serif text-2xl">
-          B&amp;B <span className="italic text-gold">Academy</span>
+      <aside className="hidden border-r border-white/10 bg-black/20 px-4 py-6 lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col">
+        <Link href="/dashboard" className="px-2 text-sm font-medium tracking-tight">
+          B&amp;B <span className="text-mute">Academy</span>
         </Link>
         <div className="mt-8 px-2">
           <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-mute">{levelLabel}</p>
@@ -67,8 +67,8 @@ export function AppShell({
       </aside>
       <div className="flex min-h-screen flex-col">
         <header className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-4 md:px-8">
-          <Link href="/dashboard" className="font-serif text-xl lg:hidden">
-            B&amp;B <span className="italic text-gold">Academy</span>
+          <Link href="/dashboard" className="text-sm font-medium tracking-tight lg:hidden">
+            B&amp;B <span className="text-mute">Academy</span>
           </Link>
           <p className="hidden text-sm text-mute lg:block">{user.name}</p>
           <div className="ml-auto flex items-center gap-4 text-sm">

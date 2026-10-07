@@ -24,6 +24,9 @@ export type User = {
 export type Settings = {
   academy_name: string;
   entry_price_cents: number;
+  list_price_cents: number;
+  offer_seats: number;
+  offer_ends_at: string;
   monthly_price_cents: number;
   currency: string;
   timezone: string;
@@ -165,6 +168,9 @@ export type Broadcast = {
 const defaults: Settings = {
   academy_name: "B&B Trading Academy",
   entry_price_cents: 2500,
+  list_price_cents: 10000,
+  offer_seats: 50,
+  offer_ends_at: "2026-10-12T03:59:59.000Z",
   monthly_price_cents: 5000,
   currency: "USD",
   timezone: "America/Santo_Domingo",
@@ -475,6 +481,9 @@ function seed(file: DatabaseSync) {
   const settings: Record<string, string> = {
     academy_name: defaults.academy_name,
     entry_price_cents: String(defaults.entry_price_cents),
+    list_price_cents: String(defaults.list_price_cents),
+    offer_seats: String(defaults.offer_seats),
+    offer_ends_at: defaults.offer_ends_at,
     monthly_price_cents: String(defaults.monthly_price_cents),
     currency: defaults.currency,
     timezone: defaults.timezone,
@@ -697,6 +706,9 @@ export function getSettings(): Settings {
   return {
     academy_name: map.academy_name || defaults.academy_name,
     entry_price_cents: Number(map.entry_price_cents ?? defaults.entry_price_cents),
+    list_price_cents: Number(map.list_price_cents ?? defaults.list_price_cents),
+    offer_seats: Number(map.offer_seats ?? defaults.offer_seats),
+    offer_ends_at: map.offer_ends_at || defaults.offer_ends_at,
     monthly_price_cents: Number(map.monthly_price_cents ?? defaults.monthly_price_cents),
     currency: map.currency || defaults.currency,
     timezone: map.timezone || defaults.timezone,
@@ -1497,6 +1509,16 @@ export function passedSince(iso: string) {
 
 export function attemptCountForUser(userId: number) {
   return get<{ c: number }>(`SELECT COUNT(*) AS c FROM attempts WHERE user_id = ?`, userId)?.c ?? 0;
+}
+
+export function reservedSeats() {
+  return (
+    get<{ c: number }>(
+      `SELECT COUNT(DISTINCT t.user_id) AS c
+       FROM transactions t JOIN users u ON u.id = t.user_id
+       WHERE t.product_key = 'entry' AND t.status = 'paid' AND u.email != 'alumno@bbtrading.academy'`,
+    )?.c ?? 0
+  );
 }
 
 export function metrics() {

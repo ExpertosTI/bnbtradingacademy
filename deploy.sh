@@ -23,5 +23,6 @@ docker image prune -f >/dev/null
 
 docker build -t "$IMAGE" .
 docker stack deploy -c stack.yml "$STACK"
+docker service update --force --detach=true --image "$IMAGE" "${STACK}_web"
 docker service ls --filter "name=${STACK}_"
 echo "Listo. Abre https://bnbtradingacademy.com"

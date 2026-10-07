@@ -19,6 +19,7 @@ import {
 } from "../db";
 import { isStaff, membershipGrants } from "../access";
 import { flushMail } from "../mail";
+import { currentOffer } from "../offer";
 import { cardPaymentsReady, startCardCheckout } from "../drivers/payments";
 
 async function student() {
@@ -31,15 +32,17 @@ export async function confirmPaymentAction() {
   const user = await student();
   if (isStaff(user)) redirect("/dashboard");
   const settings = getSettings();
+  const offer = currentOffer();
   const entryPaid = hasPaid(user.id, "entry");
   const membership = refreshMembership(user.id);
   if (entryPaid && membershipGrants(membership)) redirect("/dashboard");
+  const entryCents = entryPaid ? 0 : offer.priceCents;
   if (cardPaymentsReady()) {
     const url = await startCardCheckout({
       userId: user.id,
       email: user.email,
       includeEntry: !entryPaid,
-      entryCents: settings.entry_price_cents,
+      entryCents,
       monthlyCents: entryPaid ? membership?.amount_cents || settings.monthly_price_cents : settings.monthly_price_cents,
     });
     redirect(url);
@@ -50,7 +53,7 @@ export async function confirmPaymentAction() {
     monthly,
     settings.currency,
     !entryPaid,
-    settings.entry_price_cents,
+    entryCents,
   );
   notify(
     user.id,

@@ -4,7 +4,8 @@
 
 :root {
   color-scheme: dark;
-  --gold: #d4b06a;
+  --up: #3ddc97;
+  --down: #ff5d5d;
 }
 
 html {
@@ -13,12 +14,8 @@ html {
 
 body {
   min-height: 100vh;
-  background:
-    radial-gradient(1200px 560px at 88% -8%, rgba(212, 176, 106, 0.18), transparent 58%),
-    radial-gradient(900px 480px at -12% 12%, rgba(94, 184, 148, 0.08), transparent 52%),
-    radial-gradient(700px 400px at 50% 110%, rgba(90, 70, 140, 0.12), transparent 50%),
-    #070709;
-  color: #f4f0e6;
+  background: #050506;
+  color: #f2f2f2;
 }
 
 body::before {
@@ -26,21 +23,12 @@ body::before {
   pointer-events: none;
   position: fixed;
   inset: 0;
-  opacity: 0.22;
+  opacity: 0.45;
   background-image:
-    linear-gradient(rgba(244, 240, 230, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(244, 240, 230, 0.035) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse at 50% 0%, black 20%, transparent 78%);
-}
-
-body::after {
-  content: "";
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  opacity: 0.04;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 88px 88px;
+  mask-image: linear-gradient(to bottom, black, transparent 70%);
 }
 
 a {
@@ -48,45 +36,58 @@ a {
 }
 
 ::selection {
-  background: #d4b06a;
-  color: #070709;
+  background: #3ddc97;
+  color: #050506;
+}
+
+.font-serif {
+  font-family: Outfit, sans-serif;
+  letter-spacing: -0.045em;
 }
 
 @keyframes rise {
-  from { opacity: 0; transform: translateY(14px); }
+  from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: none; }
 }
 
 @keyframes pulse-gold {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 176, 106, 0.35); }
-  50% { box-shadow: 0 0 0 10px rgba(212, 176, 106, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(61, 220, 151, 0.45); }
+  50% { box-shadow: 0 0 0 8px rgba(61, 220, 151, 0); }
+}
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 .rise {
-  animation: rise 0.7s ease both;
+  animation: rise 0.6s ease both;
 }
 
 @layer components {
   .btn-gold {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-gold2 hover:shadow-[0_0_32px_rgba(212,176,106,0.35)] disabled:cursor-wait disabled:opacity-60;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black transition hover:bg-white/85 disabled:cursor-wait disabled:opacity-60;
   }
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-gold/25 bg-white/[0.03] px-5 py-2.5 text-sm text-cream backdrop-blur transition hover:border-gold hover:bg-white/[0.06];
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-transparent px-5 py-2.5 text-sm text-cream transition hover:border-white/40 hover:bg-white/5;
   }
   .btn-danger {
     @apply inline-flex items-center justify-center rounded-full border border-bad/40 px-4 py-2 text-sm text-bad;
   }
   .field {
-    @apply w-full rounded-2xl border border-white/10 bg-black/50 px-3 py-2.5 text-sm text-cream outline-none transition focus:border-gold/70;
+    @apply w-full rounded-xl border border-white/10 bg-black px-3 py-2.5 text-sm text-cream outline-none transition focus:border-white/40;
   }
   .card {
-    @apply rounded-[28px] border border-white/10 bg-panel/70 p-6 shadow-desk backdrop-blur-xl;
+    @apply relative rounded-2xl border border-white/10 bg-[#0a0a0c] p-6;
   }
   .glass {
-    @apply rounded-[28px] border border-white/10 bg-white/[0.04] backdrop-blur-2xl;
+    @apply rounded-2xl border border-white/10 bg-white/[0.02];
+  }
+  .frame {
+    @apply border-white/10;
   }
   .eyebrow {
-    @apply font-mono text-[11px] uppercase tracking-[0.24em] text-gold;
+    @apply font-mono text-[11px] uppercase tracking-[0.22em] text-good;
   }
   .label {
     @apply mb-1.5 block text-sm text-mute;
@@ -94,22 +95,38 @@ a {
 }
 
 .nav-link {
-  @apply flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm text-mute transition hover:bg-white/5 hover:text-cream;
+  @apply flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-mute transition hover:bg-white/5 hover:text-cream;
 }
 
 .nav-link[data-active="true"] {
-  @apply bg-gold/10 text-cream;
+  @apply bg-white/5 text-cream shadow-[inset_2px_0_0_#3ddc97];
 }
 
 .progress-bar {
-  @apply h-1.5 overflow-hidden rounded-full bg-white/10;
+  @apply h-px overflow-hidden bg-white/15;
 }
 
 .progress-bar > span {
-  @apply block h-full rounded-full bg-gradient-to-r from-gold to-gold2;
+  @apply block h-full bg-good;
 }
 
 .live-dot {
-  @apply relative inline-flex h-2.5 w-2.5 rounded-full bg-bad;
+  @apply relative inline-flex h-2 w-2 rounded-full bg-bad;
   animation: pulse-gold 1.8s ease-out infinite;
+}
+
+.live-dot.is-good {
+  @apply bg-good;
+}
+
+.ticker-track {
+  animation: ticker 36s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .ticker-track,
+  .live-dot {
+    animation: none;
+  }
 }

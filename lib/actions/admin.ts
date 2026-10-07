@@ -46,12 +46,20 @@ function text(formData: FormData, key: string) {
 export async function saveSettingsAction(formData: FormData) {
   const user = await admin();
   const entry = Math.round(Number(formData.get("entry_price")) * 100);
+  const list = Math.round(Number(formData.get("list_price")) * 100);
   const monthly = Math.round(Number(formData.get("monthly_price")) * 100);
+  const seats = Math.round(Number(formData.get("offer_seats")));
   const ratio = Number(formData.get("min_watch_ratio"));
-  if (!Number.isFinite(entry) || entry < 0 || !Number.isFinite(monthly) || monthly < 0) return;
+  if (!Number.isFinite(entry) || entry < 0 || !Number.isFinite(list) || list < 0 || !Number.isFinite(monthly) || monthly < 0) return;
+  const rawEnd = text(formData, "offer_ends_at");
+  const normalized = rawEnd.length === 16 ? `${rawEnd}:00` : rawEnd;
+  const ends = new Date(normalized.endsWith("Z") || /[+-]\d\d:\d\d$/.test(normalized) ? normalized : `${normalized}-04:00`);
   updateSettings({
     academy_name: text(formData, "academy_name") || "B&B Trading Academy",
     entry_price_cents: String(entry),
+    list_price_cents: String(list),
+    offer_seats: String(Number.isFinite(seats) && seats > 0 ? seats : 50),
+    offer_ends_at: Number.isNaN(ends.getTime()) ? "2026-10-12T03:59:59.000Z" : ends.toISOString(),
     monthly_price_cents: String(monthly),
     timezone: text(formData, "timezone") || "America/Santo_Domingo",
     live_start: text(formData, "live_start") || "09:00",
@@ -65,7 +73,7 @@ export async function saveSettingsAction(formData: FormData) {
     expire_locks: text(formData, "expire_locks") === "all" ? "all" : "premium",
   });
   addAudit(user.id, "config", "Precios, horarios o reglas actualizados");
-  revalidatePath("/");
+  revalidatePath("/", "layout");
   revalidatePath("/admin/config");
 }
 

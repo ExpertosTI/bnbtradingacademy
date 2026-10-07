@@ -11,9 +11,10 @@ const links = [
 
 export function PublicHeader({ user }: { user: User | null }) {
   return (
-    <header className="relative z-10 mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-6">
-      <Link href="/" className="font-serif text-xl tracking-tight">
-        B&amp;B <span className="italic text-gold">Academy</span>
+    <header className="sticky top-0 z-30 border-b border-white/10 bg-[#050506]/80 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3">
+      <Link href="/" className="text-sm font-medium tracking-tight">
+        B&amp;B <span className="text-mute">Academy</span>
       </Link>
       <nav className="hidden items-center gap-7 text-sm text-mute md:flex">
         {links.map(([label, href]) => (
@@ -35,9 +36,10 @@ export function PublicHeader({ user }: { user: User | null }) {
         ) : (
           <>
             <Link className="btn-ghost" href="/login">Ingresar</Link>
-            <Link className="btn-gold" href="/registro">Empezar</Link>
+            <Link className="btn-gold" href="/registro">Apartar cupo</Link>
           </>
         )}
+      </div>
       </div>
     </header>
   );

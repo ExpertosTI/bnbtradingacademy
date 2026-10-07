@@ -31,7 +31,7 @@ export default async function LivePage() {
         </div>
         {window.state === "live" && <span className="inline-flex items-center gap-2 text-sm text-bad"><span className="live-dot" /> Sesión en horario</span>}
       </div>
-      <section className="card min-h-[280px]">
+      <section className="frame card relative min-h-[280px] overflow-hidden">
         {window.state === "upcoming" && <Countdown target={window.start.toISOString()} label="La mesa abre en" />}
         {window.state === "live" && open && settings.live_stream_url && (
           <div className="space-y-4">

@@ -49,6 +49,7 @@ export async function startCardCheckout(input: {
     metadata: {
       userId: String(input.userId),
       includeEntry: input.includeEntry ? "1" : "0",
+      entryCents: String(input.entryCents),
     },
     subscription_data: {
       metadata: { userId: String(input.userId) },
@@ -67,8 +68,9 @@ export async function fulfillCheckoutSession(sessionId: string) {
   if (!userId || hasReference(session.id)) return Boolean(userId && hasReference(session.id));
   const settings = getSettings();
   const includeEntry = session.metadata?.includeEntry === "1" && !hasPaid(userId, "entry");
+  const entryCents = Number(session.metadata?.entryCents || settings.entry_price_cents);
   const monthly = settings.monthly_price_cents;
-  const end = activateMembership(userId, monthly, settings.currency, includeEntry, settings.entry_price_cents, session.id);
+  const end = activateMembership(userId, monthly, settings.currency, includeEntry, entryCents, session.id);
   notify(userId, "Pago con tarjeta registrado", `La membresía queda activa hasta ${end}.`, `stripe:${session.id}`);
   return true;
 }

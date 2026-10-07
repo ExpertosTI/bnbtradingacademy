@@ -4,6 +4,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { courseAccess, membershipGrants, membershipOf } from "@/lib/access";
 import { cardPaymentsReady } from "@/lib/drivers/payments";
 import { getSettings, hasPaid } from "@/lib/db";
+import { currentOffer } from "@/lib/offer";
 import { formatDay, money } from "@/lib/format";
 
 export const metadata = { title: "Pago" };
@@ -12,6 +13,7 @@ export default async function CheckoutPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/login");
   const settings = getSettings();
+  const offer = currentOffer();
   const entryPaid = hasPaid(user.id, "entry");
   const membership = membershipOf(user);
   const active = membershipGrants(membership);
@@ -19,7 +21,7 @@ export default async function CheckoutPage() {
   if (entryPaid && active) redirect("/dashboard");
 
   const lines = [
-    ...(!entryPaid ? [{ name: "Inscripción", amount: settings.entry_price_cents }] : []),
+    ...(!entryPaid ? [{ name: offer.open ? "Inscripción · oferta de cupo" : "Inscripción", amount: offer.priceCents }] : []),
     { name: entryPaid ? "Renovación mensual" : "Primer mes de membresía", amount: entryPaid ? membership?.amount_cents || settings.monthly_price_cents : settings.monthly_price_cents },
   ];
   const total = lines.reduce((sum, line) => sum + line.amount, 0);
@@ -43,6 +45,9 @@ export default async function CheckoutPage() {
           <span>{money(total, settings.currency)}</span>
         </div>
         <p className="text-sm text-mute">
+          {offer.open && !entryPaid
+            ? `El valor del cupo es ${money(offer.listCents, settings.currency)}. Esta oferta de ${money(offer.priceCents, settings.currency)} sigue abierta: quedan ${offer.left} de ${offer.seats}.`
+            : "La oferta de cupo no aplica a este cobro."}{" "}
           La siguiente mensualidad de {money(nextAmount, settings.currency)} queda para el {formatDay(next, settings.timezone)}. Ese monto queda guardado en tu plan aunque el precio público cambie.
         </p>
       </div>

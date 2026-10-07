@@ -39,12 +39,12 @@ export function StudyPlayer({
       {videoRef ? (
         <iframe className="aspect-video w-full" src={videoRef} allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen title="Lección" />
       ) : (
-        <div className="relative flex aspect-video flex-col items-center justify-center gap-5 bg-[radial-gradient(circle_at_center,rgba(212,176,106,0.18),transparent_62%)]">
+        <div className="relative flex aspect-video flex-col items-center justify-center gap-5 bg-black">
           <p className="eyebrow">Aula protegida</p>
-          <button className="btn-gold px-8 py-3 text-base" type="button" onClick={() => setPlaying((value) => !value)}>
+          <button className="btn-gold relative z-10 px-8 py-3 text-base" type="button" onClick={() => setPlaying((value) => !value)}>
             {done ? "Lección registrada" : playing ? "Pausar estudio" : "Reproducir lección"}
           </button>
-          <p className="max-w-sm text-center text-sm text-mute">El archivo no se publica como enlace. El tiempo de visualización queda en tu perfil.</p>
+          <p className="relative z-10 max-w-sm text-center text-sm text-mute">El archivo no se publica como enlace. El tiempo de visualización queda en tu perfil.</p>
         </div>
       )}
       <div className="space-y-2 p-5">
