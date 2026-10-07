@@ -32,7 +32,7 @@ export default function HomePage() {
       <section className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-8 pt-6 lg:grid-cols-[1.05fr_0.95fr] lg:pt-10">
         <Reveal>
           <p className="eyebrow">Campus privado · {settings.timezone.replace(/_/g, " ")}</p>
-          <h1 className="mt-5 max-w-xl text-5xl font-medium leading-[0.95] tracking-[-0.05em] text-cream sm:text-7xl">
+          <h1 className="mt-4 max-w-xl text-4xl font-semibold leading-tight text-ink sm:text-6xl">
             La mesa está en el campus.
           </h1>
           <p className="mt-6 max-w-md text-lg leading-relaxed text-mute">
@@ -106,9 +106,9 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto mt-24 max-w-6xl px-5">
-        <div className="grid gap-px overflow-hidden rounded-[28px] border border-white/10 bg-white/10 md:grid-cols-3">
+        <div className="grid gap-px overflow-hidden rounded-2xl border border-[#e4dfd4] bg-[#e4dfd4] md:grid-cols-3">
         {paths.map(([n, title, copy]) => (
-          <article key={title} className="bg-[#070709] px-6 py-8 md:px-8">
+          <article key={title} className="bg-[#fffcf7] px-6 py-8 md:px-8">
             <p className="font-mono text-xs text-good">{n}</p>
             <h3 className="mt-4 text-3xl font-medium tracking-tight">{title}</h3>
             <p className="mt-3 leading-relaxed text-mute">{copy}</p>

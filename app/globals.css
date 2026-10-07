@@ -3,9 +3,7 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
-  --up: #3ddc97;
-  --down: #ff5d5d;
+  color-scheme: light;
 }
 
 html {
@@ -14,21 +12,8 @@ html {
 
 body {
   min-height: 100vh;
-  background: #050506;
-  color: #f2f2f2;
-}
-
-body::before {
-  content: "";
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  opacity: 0.45;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 88px 88px;
-  mask-image: linear-gradient(to bottom, black, transparent 70%);
+  background: #f3f0e8;
+  color: #1c1917;
 }
 
 a {
@@ -36,28 +21,50 @@ a {
 }
 
 ::selection {
-  background: #3ddc97;
-  color: #050506;
+  background: #1f4b3a;
+  color: #f7f4ee;
 }
 
-.font-serif {
-  font-family: Outfit, sans-serif;
-  letter-spacing: -0.045em;
+.font-serif,
+.font-mono,
+.italic {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-style: normal;
+  letter-spacing: -0.03em;
+}
+
+.border-white\/5,
+.border-white\/10,
+.border-white\/15,
+.border-white\/25,
+.border-gold\/25,
+.border-gold\/30,
+.border-gold\/40,
+.border-gold\/50 {
+  border-color: #e4dfd4;
+}
+
+.divide-white\/5 > :not([hidden]) ~ :not([hidden]),
+.divide-white\/10 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #e4dfd4;
+}
+
+.bg-black,
+.bg-black\/20,
+.bg-black\/40,
+.bg-black\/50,
+.bg-ink\/90 {
+  background-color: #fffcf7;
 }
 
 @keyframes rise {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: none; }
 }
 
 @keyframes pulse-gold {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(61, 220, 151, 0.45); }
-  50% { box-shadow: 0 0 0 8px rgba(61, 220, 151, 0); }
-}
-
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(31, 75, 58, 0.28); }
+  50% { box-shadow: 0 0 0 8px rgba(31, 75, 58, 0); }
 }
 
 .rise {
@@ -66,28 +73,28 @@ a {
 
 @layer components {
   .btn-gold {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black transition hover:bg-white/85 disabled:cursor-wait disabled:opacity-60;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-good px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#16382b] disabled:cursor-wait disabled:opacity-60;
   }
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-transparent px-5 py-2.5 text-sm text-cream transition hover:border-white/40 hover:bg-white/5;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-[#d9d3c7] bg-white px-5 py-2.5 text-sm font-medium text-ink transition hover:border-good hover:text-good;
   }
   .btn-danger {
-    @apply inline-flex items-center justify-center rounded-full border border-bad/40 px-4 py-2 text-sm text-bad;
+    @apply inline-flex items-center justify-center rounded-xl border border-bad/30 px-4 py-2 text-sm text-bad;
   }
   .field {
-    @apply w-full rounded-xl border border-white/10 bg-black px-3 py-2.5 text-sm text-cream outline-none transition focus:border-white/40;
+    @apply w-full rounded-xl border border-[#d9d3c7] bg-white px-3 py-2.5 text-sm text-ink outline-none transition focus:border-good;
   }
   .card {
-    @apply relative rounded-2xl border border-white/10 bg-[#0a0a0c] p-6;
+    @apply relative rounded-2xl border border-[#e4dfd4] bg-white p-6 shadow-[0_16px_40px_rgba(28,25,23,0.05)];
   }
   .glass {
-    @apply rounded-2xl border border-white/10 bg-white/[0.02];
+    @apply rounded-2xl border border-[#e4dfd4] bg-white;
   }
   .frame {
-    @apply border-white/10;
+    @apply border-[#e4dfd4];
   }
   .eyebrow {
-    @apply font-mono text-[11px] uppercase tracking-[0.22em] text-good;
+    @apply text-sm font-semibold text-good;
   }
   .label {
     @apply mb-1.5 block text-sm text-mute;
@@ -95,19 +102,19 @@ a {
 }
 
 .nav-link {
-  @apply flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-mute transition hover:bg-white/5 hover:text-cream;
+  @apply flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-mute transition hover:bg-[#f3f0e8] hover:text-ink;
 }
 
 .nav-link[data-active="true"] {
-  @apply bg-white/5 text-cream shadow-[inset_2px_0_0_#3ddc97];
+  @apply bg-[#e7f2ec] font-medium text-ink;
 }
 
 .progress-bar {
-  @apply h-px overflow-hidden bg-white/15;
+  @apply h-1.5 overflow-hidden rounded-full bg-[#e7e2d8];
 }
 
 .progress-bar > span {
-  @apply block h-full bg-good;
+  @apply block h-full rounded-full bg-good;
 }
 
 .live-dot {
@@ -119,13 +126,8 @@ a {
   @apply bg-good;
 }
 
-.ticker-track {
-  animation: ticker 36s linear infinite;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .rise,
-  .ticker-track,
   .live-dot {
     animation: none;
   }

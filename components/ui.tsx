@@ -32,7 +32,7 @@ export function Locked({ title, reasons }: { title: string; reasons: string[] })
 
 export function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+    <div className="rounded-2xl border border-[#e4dfd4] bg-white p-4">
       <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-mute">{label}</p>
       <p className="mt-2 font-serif text-3xl text-cream">{value}</p>
     </div>

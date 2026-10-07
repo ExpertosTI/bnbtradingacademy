@@ -11,7 +11,7 @@ const links = [
 
 export function PublicHeader({ user }: { user: User | null }) {
   return (
-    <header className="sticky top-0 z-30 border-b border-white/10 bg-[#050506]/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-30 border-b border-[#e4dfd4] bg-[#f3f0e8]/90 backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3">
       <Link href="/" className="text-sm font-medium tracking-tight">
         B&amp;B <span className="text-mute">Academy</span>

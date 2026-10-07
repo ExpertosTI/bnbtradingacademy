@@ -36,7 +36,7 @@ export function AppShell({
 
   return (
     <div className="relative z-10 mx-auto min-h-screen max-w-[1440px] lg:grid lg:grid-cols-[240px_1fr]">
-      <aside className="hidden border-r border-white/10 bg-black/20 px-4 py-6 lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col">
+      <aside className="hidden border-r border-[#e4dfd4] bg-[#fffcf7] px-4 py-6 lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col">
         <Link href="/dashboard" className="px-2 text-sm font-medium tracking-tight">
           B&amp;B <span className="text-mute">Academy</span>
         </Link>
@@ -83,7 +83,7 @@ export function AppShell({
           </div>
         </header>
         <main className="flex-1 px-4 py-6 md:px-8 md:py-8">{children}</main>
-        <nav className="sticky bottom-0 flex gap-1 overflow-x-auto border-t border-white/10 bg-ink/90 px-2 py-2 backdrop-blur lg:hidden">
+        <nav className="sticky bottom-0 flex gap-1 overflow-x-auto border-t border-[#e4dfd4] bg-[#fffcf7] px-2 py-2 lg:hidden">
           {links.slice(0, 5).map((link) => {
             const Icon = link.icon;
             const active = pathname === link.href || pathname.startsWith(`${link.href}/`);

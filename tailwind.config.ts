@@ -5,19 +5,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#050506",
-        panel: "#0a0a0c",
-        cream: "#f2f2f2",
-        mute: "#8d8d96",
-        gold: "#d4d4d8",
-        gold2: "#fafafa",
-        good: "#3ddc97",
-        bad: "#ff5d5d",
+        ink: "#1c1917",
+        panel: "#fffcf7",
+        cream: "#1c1917",
+        mute: "#5c564e",
+        gold: "#1f4b3a",
+        gold2: "#1c1917",
+        good: "#1f4b3a",
+        bad: "#9f1239",
       },
       fontFamily: {
-        sans: ["Outfit", "sans-serif"],
-        serif: ["Fraunces", "serif"],
-        mono: ["IBM Plex Mono", "ui-monospace", "monospace"],
+        sans: ["Plus Jakarta Sans", "sans-serif"],
+        serif: ["Plus Jakarta Sans", "sans-serif"],
+        mono: ["Plus Jakarta Sans", "sans-serif"],
       },
       boxShadow: {
         desk: "0 30px 80px rgba(0,0,0,0.45)",
