@@ -1,6 +1,6 @@
 import Stripe from "stripe";
-import { activateMembership, getSettings, hasPaid, hasReference, notify } from "./db";
-import { siteUrl } from "./site";
+import { activateMembership, getSettings, hasPaid, hasReference, notify } from "../db";
+import { siteUrl } from "../site";
 
 export function cardPaymentsReady() {
   return Boolean(process.env.STRIPE_SECRET_KEY);
