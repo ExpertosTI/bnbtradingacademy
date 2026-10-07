@@ -16,6 +16,11 @@ fi
 
 cd "$DIR"
 rm -f .env .env.local
+
+# Libera caché de build. No borra imágenes de servicios en marcha ni volúmenes.
+docker builder prune -af >/dev/null
+docker image prune -f >/dev/null
+
 docker build -t "$IMAGE" .
 docker stack deploy -c stack.yml "$STACK"
 docker service ls --filter "name=${STACK}_"
