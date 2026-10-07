@@ -15,13 +15,8 @@ else
 fi
 
 cd "$DIR"
+rm -f .env .env.local
 docker build -t "$IMAGE" .
-if [ -f "$DIR/.env" ]; then
-  set -a
-  # shellcheck disable=SC1091
-  source "$DIR/.env"
-  set +a
-fi
-docker stack deploy -c stack.yml --with-registry-auth "$STACK"
-docker service ls | grep "$STACK" || true
+docker stack deploy -c stack.yml "$STACK"
+docker service ls --filter "name=${STACK}_"
 echo "Listo. Abre https://bnbtradingacademy.com"

@@ -1,35 +1,27 @@
-# Swarm de Renace (Traefik en 45.9.191.18).
-# La red overlay debe existir y ser attachable: traefik_public.
-# docker build -t bnbtradingacademy:latest .
-# docker stack deploy -c stack.yml bnbacademy
-
 services:
   web:
     image: bnbtradingacademy:latest
     environment:
+      NODE_ENV: production
       NEXT_PUBLIC_SITE_URL: https://bnbtradingacademy.com
-      SMTP_HOST: ${SMTP_HOST:-}
-      SMTP_PORT: ${SMTP_PORT:-587}
-      SMTP_USER: ${SMTP_USER:-}
-      SMTP_PASS: ${SMTP_PASS:-}
-      SMTP_FROM: ${SMTP_FROM:-academia@bnbtradingacademy.com}
-      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
-      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
+      SMTP_HOST: smtp.hostinger.com
+      SMTP_PORT: "465"
+      SMTP_FROM: academia@bnbtradingacademy.com
     volumes:
       - academy_data:/app/data
     networks:
-      - traefik_public
+      - RenaceNet
     deploy:
       replicas: 1
       restart_policy:
         condition: on-failure
       labels:
         - traefik.enable=true
-        - traefik.docker.network=traefik_public
+        - traefik.docker.network=RenaceNet
         - traefik.http.routers.bnbacademy.rule=Host(`bnbtradingacademy.com`) || Host(`www.bnbtradingacademy.com`)
         - traefik.http.routers.bnbacademy.entrypoints=websecure
         - traefik.http.routers.bnbacademy.tls=true
-        - traefik.http.routers.bnbacademy.tls.certresolver=letsencrypt
+        - traefik.http.routers.bnbacademy.tls.certresolver=letsencryptresolver
         - traefik.http.services.bnbacademy.loadbalancer.server.port=3000
         - traefik.http.routers.bnbacademy-http.rule=Host(`bnbtradingacademy.com`) || Host(`www.bnbtradingacademy.com`)
         - traefik.http.routers.bnbacademy-http.entrypoints=web
@@ -40,5 +32,5 @@ volumes:
   academy_data:
 
 networks:
-  traefik_public:
+  RenaceNet:
     external: true
