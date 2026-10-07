@@ -162,3 +162,32 @@ export function examForLevel(level: Level) {
 export function membershipOf(user: User) {
   return refreshMembership(user.id);
 }
+
+export function campusProgress(user: User) {
+  const levels = listLevels().filter((level) => level.practical === 0);
+  const progress = allProgress(user.id);
+  let total = 0;
+  let done = 0;
+  for (const level of levels) {
+    const lessons = listLessons(level.id);
+    total += lessons.length;
+    done += lessons.filter((lesson) => progress.some((item) => item.lesson_id === lesson.id && item.completed === 1)).length;
+  }
+  if (total === 0) return 0;
+  return Math.round((done / total) * 100);
+}
+
+export function journeySteps(user: User) {
+  const paid = courseAccess(user);
+  const n1 = hasPassed(user.id, "nivel-1");
+  const n2 = hasPassed(user.id, "nivel-2");
+  const n3 = stageUnlocked(user);
+  const live = liveRequirements(user).length === 0;
+  return [
+    { id: "pago", label: "Inscripción", done: paid, href: paid ? "/dashboard" : "/checkout" },
+    { id: "n1", label: "Nivel 1", done: n1, href: "/cursos" },
+    { id: "n2", label: "Nivel 2", done: n2, href: "/cursos" },
+    { id: "n3", label: "Nivel 3", done: n3, href: "/cursos" },
+    { id: "mesa", label: "Mesa en vivo", done: live, href: "/live" },
+  ];
+}

@@ -12,16 +12,14 @@ export function LoginForm({ next }: { next: string }) {
       <input type="hidden" name="next" value={next} />
       <label className="block">
         <span className="label">Correo</span>
-        <input className="field" name="email" type="email" required />
+        <input className="field" name="email" type="email" autoComplete="email" required />
       </label>
       <label className="block">
         <span className="label">Contraseña</span>
-        <input className="field" name="password" type="password" required />
+        <input className="field" name="password" type="password" autoComplete="current-password" required />
       </label>
       {state.error && <p className="text-sm text-bad">{state.error}</p>}
-      <button className="btn-gold w-full" type="submit">
-        Ingresar
-      </button>
+      <button className="btn-gold w-full" type="submit">Entrar al campus</button>
     </form>
   );
 }
@@ -29,7 +27,7 @@ export function LoginForm({ next }: { next: string }) {
 export function RegisterForm() {
   const [state, action] = useActionState(registerAction, initial);
   return (
-    <form action={action} className="card space-y-4">
+    <form action={action} className="card space-y-5">
       <label className="block">
         <span className="label">Nombre</span>
         <input className="field" name="name" required />
@@ -42,20 +40,28 @@ export function RegisterForm() {
         <span className="label">Contraseña</span>
         <input className="field" name="password" type="password" minLength={8} required />
       </label>
-      <fieldset className="space-y-2">
-        <legend className="label">Experiencia declarada</legend>
-        <label className="flex gap-2 text-sm"><input type="radio" name="experience" value="beginner" required /> Principiante: empiezas en Nivel 1 y los videos son obligatorios.</label>
-        <label className="flex gap-2 text-sm"><input type="radio" name="experience" value="intermediate" /> Intermedio: puedes validar el Nivel 1. Si apruebas, entras al Nivel 2.</label>
-        <label className="flex gap-2 text-sm"><input type="radio" name="experience" value="advanced" /> Avanzado: no abre la práctica. Debes aprobar la validación avanzada.</label>
+      <fieldset className="grid gap-2">
+        <legend className="label">Elige tu ruta de entrada</legend>
+        {[
+          ["beginner", "Principiante", "Empiezas en Nivel 1. Los videos son obligatorios."],
+          ["intermediate", "Intermedio", "Puedes validar el Nivel 1. Si no, estudias las lecciones."],
+          ["advanced", "Avanzado", "Debes aprobar la validación. No abre la práctica al registrarte."],
+        ].map(([value, title, copy]) => (
+          <label key={value} className="flex cursor-pointer gap-3 rounded-2xl border border-white/10 p-4 hover:border-gold/40">
+            <input className="mt-1" type="radio" name="experience" value={value} required />
+            <span>
+              <span className="block font-medium">{title}</span>
+              <span className="mt-1 block text-sm text-mute">{copy}</span>
+            </span>
+          </label>
+        ))}
       </fieldset>
-      <label className="flex gap-2 text-sm text-mute">
+      <label className="flex gap-3 text-sm text-mute">
         <input type="checkbox" name="terms" required />
-        Acepto los términos, la privacidad, la política de cancelación y el aviso de riesgo. Entiendo que la formación no garantiza ganancias.
+        Acepto términos, privacidad, cancelación y el aviso de riesgo. Esta formación no garantiza ganancias.
       </label>
       {state.error && <p className="text-sm text-bad">{state.error}</p>}
-      <button className="btn-gold w-full" type="submit">
-        Crear cuenta y ver el pago
-      </button>
+      <button className="btn-gold w-full" type="submit">Crear cuenta y ver el pago</button>
     </form>
   );
 }
@@ -70,9 +76,7 @@ export function RecoverForm() {
       </label>
       {state.error && <p className="text-sm text-bad">{state.error}</p>}
       {state.notice && <p className="text-sm text-good">{state.notice}</p>}
-      <button className="btn-gold" type="submit">
-        Enviar enlace
-      </button>
+      <button className="btn-gold" type="submit">Enviar enlace</button>
     </form>
   );
 }
@@ -87,9 +91,7 @@ export function ResetForm({ token }: { token: string }) {
         <input className="field" name="password" type="password" minLength={8} required />
       </label>
       {state.error && <p className="text-sm text-bad">{state.error}</p>}
-      <button className="btn-gold" type="submit">
-        Guardar y entrar
-      </button>
+      <button className="btn-gold" type="submit">Guardar y entrar</button>
     </form>
   );
 }

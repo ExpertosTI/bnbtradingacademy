@@ -191,6 +191,7 @@ function database() {
     migrate(file);
     ensureReferenceColumn(file);
     seed(file);
+    enrichCurriculum(file);
     globalForDb.bbDb = file;
   }
   return globalForDb.bbDb;
@@ -442,6 +443,28 @@ function insertQuestion(file: DatabaseSync, examId: number, sort: number, prompt
   });
 }
 
+function enrichCurriculum(file: DatabaseSync) {
+  file.prepare(`UPDATE lessons SET duration_min = 12 WHERE duration_min < 8`).run();
+  const extras: Array<[string, string, string, number]> = [
+    ["nivel-1", "Diario de la sesión", "Cómo abrir el día, anotar el plan y cerrar el cuaderno sin reescribir las reglas.", 12],
+    ["nivel-2", "La sesión de principio a fin", "Del contexto a la invalidación, en un solo bloque de trabajo. El análisis no promete dirección.", 15],
+    ["nivel-3", "Protocolo antes de la mesa", "Qué debe estar escrito antes de entrar al live: riesgo, condiciones y conducta.", 14],
+    ["etapa-4", "Cómo entrar al live", "El acceso está en el panel. Conducta en la mesa: observar, anotar, no copiar el lote.", 10],
+    ["etapa-4", "Domingo, ranking y reconocimientos", "Repaso de la semana, preguntas y premios que confirma administración. Nada de eso es una ganancia.", 10],
+  ];
+  const insert = file.prepare(
+    `INSERT INTO lessons (level_id, title, summary, duration_min, sort_order, video_ref) VALUES (?, ?, ?, ?, ?, '')`,
+  );
+  for (const [code, title, summary, duration] of extras) {
+    const exists = file.prepare("SELECT id FROM lessons WHERE title = ?").get(title) as { id: number } | undefined;
+    if (exists) continue;
+    const level = file.prepare("SELECT id FROM levels WHERE code = ?").get(code) as { id: number } | undefined;
+    if (!level) continue;
+    const sort = file.prepare("SELECT COALESCE(MAX(sort_order), 0) + 1 AS c FROM lessons WHERE level_id = ?").get(level.id) as { c: number };
+    insert.run(level.id, title, summary, duration, sort?.c ?? 1);
+  }
+}
+
 function seed(file: DatabaseSync) {
   const count = file.prepare("SELECT COUNT(*) AS c FROM users").get() as { c: number };
   if (count.c > 0) return;
@@ -484,12 +507,12 @@ function seed(file: DatabaseSync) {
     `INSERT INTO lessons (level_id, title, summary, duration_min, sort_order, video_ref) VALUES (?, ?, ?, ?, ?, '')`,
   );
   const lessons = [
-    [l1, "El mercado y el plan escrito", "Qué se estudia, qué no se promete y cómo queda registrado un plan antes de operar.", 2, 1],
-    [l1, "Riesgo y tamaño de posición", "Definir la pérdida aceptada y el tamaño antes de pensar en el resultado.", 2, 2],
-    [l1, "Registro y conducta", "Qué anotar después de cada operación de estudio y cómo no romper el plan.", 2, 3],
-    [l2, "Lectura de estructura", "Contexto y escenarios. El análisis ordena el trabajo; no asegura la dirección.", 2, 1],
-    [l2, "Ejecución y gestión", "Entrada, invalidación y salida según reglas definidas antes de la sesión.", 2, 2],
-    [l3, "Intensivo de criterio", "Repetición del proceso completo antes de la mesa en vivo.", 2, 1],
+    [l1, "El mercado y el plan escrito", "Qué se estudia, qué no se promete y cómo queda registrado un plan antes de operar.", 14, 1],
+    [l1, "Riesgo y tamaño de posición", "Definir la pérdida aceptada y el tamaño antes de pensar en el resultado.", 16, 2],
+    [l1, "Registro y conducta", "Qué anotar después de cada operación de estudio y cómo no romper el plan.", 12, 3],
+    [l2, "Lectura de estructura", "Contexto y escenarios. El análisis ordena el trabajo; no asegura la dirección.", 18, 1],
+    [l2, "Ejecución y gestión", "Entrada, invalidación y salida según reglas definidas antes de la sesión.", 16, 2],
+    [l3, "Intensivo de criterio", "Repetición del proceso completo antes de la mesa en vivo.", 20, 1],
   ] as const;
   const lessonIds: number[] = [];
   for (const row of lessons) lessonIds.push(Number(lesson.run(...row).lastInsertRowid));

@@ -4,15 +4,21 @@
 
 :root {
   color-scheme: dark;
+  --gold: #d4b06a;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   min-height: 100vh;
   background:
-    radial-gradient(900px 420px at 90% -10%, rgba(198, 161, 91, 0.16), transparent 60%),
-    radial-gradient(700px 380px at -10% 20%, rgba(143, 208, 168, 0.06), transparent 55%),
-    #09090b;
-  color: #f3efe4;
+    radial-gradient(1200px 560px at 88% -8%, rgba(212, 176, 106, 0.18), transparent 58%),
+    radial-gradient(900px 480px at -12% 12%, rgba(94, 184, 148, 0.08), transparent 52%),
+    radial-gradient(700px 400px at 50% 110%, rgba(90, 70, 140, 0.12), transparent 50%),
+    #070709;
+  color: #f4f0e6;
 }
 
 body::before {
@@ -20,11 +26,21 @@ body::before {
   pointer-events: none;
   position: fixed;
   inset: 0;
-  opacity: 0.18;
-  background-image: linear-gradient(rgba(243, 239, 228, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(243, 239, 228, 0.04) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: radial-gradient(circle at 50% 20%, black, transparent 75%);
+  opacity: 0.22;
+  background-image:
+    linear-gradient(rgba(244, 240, 230, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244, 240, 230, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at 50% 0%, black 20%, transparent 78%);
+}
+
+body::after {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  opacity: 0.04;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 a {
@@ -32,28 +48,45 @@ a {
 }
 
 ::selection {
-  background: #c6a15b;
-  color: #09090b;
+  background: #d4b06a;
+  color: #070709;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 176, 106, 0.35); }
+  50% { box-shadow: 0 0 0 10px rgba(212, 176, 106, 0); }
+}
+
+.rise {
+  animation: rise 0.7s ease both;
 }
 
 @layer components {
   .btn-gold {
-    @apply inline-flex items-center justify-center rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-gold2 disabled:cursor-wait disabled:opacity-60;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-gold2 hover:shadow-[0_0_32px_rgba(212,176,106,0.35)] disabled:cursor-wait disabled:opacity-60;
   }
   .btn-ghost {
-    @apply inline-flex items-center justify-center rounded-full border border-gold/30 px-5 py-2.5 text-sm text-cream transition hover:border-gold;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-gold/25 bg-white/[0.03] px-5 py-2.5 text-sm text-cream backdrop-blur transition hover:border-gold hover:bg-white/[0.06];
   }
   .btn-danger {
     @apply inline-flex items-center justify-center rounded-full border border-bad/40 px-4 py-2 text-sm text-bad;
   }
   .field {
-    @apply w-full rounded-2xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-cream outline-none transition focus:border-gold/60;
+    @apply w-full rounded-2xl border border-white/10 bg-black/50 px-3 py-2.5 text-sm text-cream outline-none transition focus:border-gold/70;
   }
   .card {
-    @apply rounded-[28px] border border-gold/15 bg-panel/90 p-6 shadow-desk;
+    @apply rounded-[28px] border border-white/10 bg-panel/70 p-6 shadow-desk backdrop-blur-xl;
+  }
+  .glass {
+    @apply rounded-[28px] border border-white/10 bg-white/[0.04] backdrop-blur-2xl;
   }
   .eyebrow {
-    @apply font-mono text-[11px] uppercase tracking-[0.22em] text-gold;
+    @apply font-mono text-[11px] uppercase tracking-[0.24em] text-gold;
   }
   .label {
     @apply mb-1.5 block text-sm text-mute;
@@ -61,9 +94,22 @@ a {
 }
 
 .nav-link {
-  @apply shrink-0 rounded-full px-3 py-1.5 text-sm text-mute transition hover:text-cream;
+  @apply flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm text-mute transition hover:bg-white/5 hover:text-cream;
 }
 
 .nav-link[data-active="true"] {
-  @apply bg-white/5 text-cream;
+  @apply bg-gold/10 text-cream;
+}
+
+.progress-bar {
+  @apply h-1.5 overflow-hidden rounded-full bg-white/10;
+}
+
+.progress-bar > span {
+  @apply block h-full rounded-full bg-gradient-to-r from-gold to-gold2;
+}
+
+.live-dot {
+  @apply relative inline-flex h-2.5 w-2.5 rounded-full bg-bad;
+  animation: pulse-gold 1.8s ease-out infinite;
 }
