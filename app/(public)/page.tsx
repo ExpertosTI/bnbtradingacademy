@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { OfferClock } from "@/components/offer-clock";
-import { PlatformScene } from "@/components/platform-scene";
 import { money } from "@/lib/format";
 import { currentOffer } from "@/lib/offer";
 
@@ -10,8 +9,7 @@ export default function HomePage() {
   const list = money(offer.listCents, offer.currency);
 
   return (
-    <div className="relative min-h-[calc(100vh-4.5rem)]">
-      <PlatformScene />
+    <div className="relative z-10 min-h-[calc(100vh-4.5rem)]">
       <div className="relative z-10 flex min-h-[calc(100vh-4.5rem)] items-center justify-center px-4 py-10">
         <section className="w-full max-w-[420px] overflow-hidden rounded-[22px] border border-white/10 bg-[#0b1730] text-white shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
           <div className="flex items-center justify-center bg-[#12243f] px-6 py-4">

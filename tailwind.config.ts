@@ -5,18 +5,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#0c0b0a",
-        panel: "#141210",
-        cream: "#f6f1e7",
-        mute: "#a3988c",
-        gold: "#c6a36a",
-        gold2: "#ead9b4",
-        good: "#c6a36a",
-        bad: "#d37b7b",
+        ink: "#07111f",
+        panel: "#0b1730",
+        cream: "#f4f7fb",
+        mute: "#93a4bd",
+        gold: "#4c9fff",
+        gold2: "#d7e8ff",
+        good: "#3ddc97",
+        bad: "#ff5d6c",
       },
       fontFamily: {
         sans: ["Manrope", "sans-serif"],
-        serif: ["Cormorant Garamond", "serif"],
+        serif: ["Manrope", "sans-serif"],
         mono: ["Manrope", "sans-serif"],
       },
       boxShadow: {

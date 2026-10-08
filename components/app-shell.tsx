@@ -36,9 +36,10 @@ export function AppShell({
 
   return (
     <div className="relative z-10 mx-auto min-h-screen max-w-[1440px] lg:grid lg:grid-cols-[240px_1fr]">
-      <aside className="hidden border-r border-gold/15 bg-[#100e0c] px-4 py-6 lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col">
-        <Link href="/dashboard" className="px-2 font-serif text-2xl text-cream">
-          B&amp;B <span className="italic text-gold">Academy</span>
+      <aside className="hidden border-r border-white/10 bg-[#0b1730] px-4 py-6 lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col">
+        <Link href="/dashboard" className="px-2 text-xl font-bold text-white">
+          <span className="mr-2 inline-block rounded-md bg-[#3b82f6] px-2 py-0.5">B&amp;B</span>
+          Academy
         </Link>
         <div className="mt-8 px-2">
           <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-mute">{levelLabel}</p>
@@ -67,14 +68,15 @@ export function AppShell({
       </aside>
       <div className="flex min-h-screen flex-col">
         <header className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-4 md:px-8">
-          <Link href="/dashboard" className="font-serif text-2xl text-cream lg:hidden">
-            B&amp;B <span className="italic text-gold">Academy</span>
+          <Link href="/dashboard" className="text-xl font-bold text-white lg:hidden">
+            <span className="mr-2 inline-block rounded-md bg-[#3b82f6] px-2 py-0.5">B&amp;B</span>
+            Academy
           </Link>
           <p className="hidden text-sm text-mute lg:block">{user.name}</p>
           <div className="ml-auto flex items-center gap-4 text-sm">
             <Link href="/notificaciones" className="inline-flex items-center gap-1 text-mute">
               <Bell size={16} />
-              {unread > 0 && <span className="rounded-full bg-gold px-1.5 text-[10px] font-semibold text-ink">{unread}</span>}
+              {unread > 0 && <span className="rounded-full bg-[#4c9fff] px-1.5 text-[10px] font-semibold text-white">{unread}</span>}
             </Link>
             <span className="hidden text-cream sm:inline">{user.name.split(" ")[0]}</span>
             <form action={logoutAction} className="lg:hidden">
@@ -83,7 +85,7 @@ export function AppShell({
           </div>
         </header>
         <main className="flex-1 px-4 py-6 md:px-8 md:py-8">{children}</main>
-        <nav className="sticky bottom-0 flex gap-1 overflow-x-auto border-t border-gold/20 bg-[#0c0b0a] px-2 py-2 lg:hidden">
+        <nav className="sticky bottom-0 flex gap-1 overflow-x-auto border-t border-white/10 bg-[#07111f] px-2 py-2 lg:hidden">
           {links.slice(0, 5).map((link) => {
             const Icon = link.icon;
             const active = pathname === link.href || pathname.startsWith(`${link.href}/`);

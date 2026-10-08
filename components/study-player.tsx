@@ -39,7 +39,7 @@ export function StudyPlayer({
       {videoRef ? (
         <iframe className="aspect-video w-full" src={videoRef} allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen title="Lección" />
       ) : (
-        <div className="relative flex aspect-video flex-col items-center justify-center gap-5 bg-[#100e0c]">
+        <div className="relative flex aspect-video flex-col items-center justify-center gap-5 bg-[#0a1428]">
           <p className="eyebrow">Aula protegida</p>
           <button className="btn-gold relative z-10 px-8 py-3 text-base" type="button" onClick={() => setPlaying((value) => !value)}>
             {done ? "Lección registrada" : playing ? "Pausar estudio" : "Reproducir lección"}

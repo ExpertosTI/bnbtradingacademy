@@ -21,8 +21,8 @@ a {
 }
 
 ::selection {
-  background: #c6a36a;
-  color: #0c0b0a;
+  background: #4c9fff;
+  color: #07111f;
 }
 
 @keyframes rise {
@@ -31,8 +31,8 @@ a {
 }
 
 @keyframes pulse-gold {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(198, 163, 106, 0.45); }
-  50% { box-shadow: 0 0 0 8px rgba(198, 163, 106, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(76, 159, 255, 0.45); }
+  50% { box-shadow: 0 0 0 8px rgba(76, 159, 255, 0); }
 }
 
 .rise {
@@ -41,28 +41,28 @@ a {
 
 @layer components {
   .btn-gold {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-gold2 disabled:cursor-wait disabled:opacity-60;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-[#4c9fff] px-5 py-3 text-sm font-bold tracking-wide text-white transition hover:bg-[#3b8df0] disabled:cursor-wait disabled:opacity-60;
   }
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-gold/40 bg-transparent px-5 py-2.5 text-sm text-cream transition hover:border-gold hover:bg-gold/10;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-white/25 bg-transparent px-5 py-2.5 text-sm text-white transition hover:border-[#4c9fff] hover:text-white;
   }
   .btn-danger {
-    @apply inline-flex items-center justify-center rounded-full border border-bad/40 px-4 py-2 text-sm text-bad;
+    @apply inline-flex items-center justify-center rounded-lg border border-bad/40 px-4 py-2 text-sm text-bad;
   }
   .field {
-    @apply w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-cream outline-none transition focus:border-gold;
+    @apply w-full rounded-lg border border-white/30 bg-transparent px-3 py-3 text-sm text-white outline-none transition placeholder:text-white/40 focus:border-[#4c9fff];
   }
   .card {
-    @apply relative rounded-2xl border border-gold/20 bg-panel p-6;
+    @apply relative rounded-[22px] border border-white/10 bg-[#0b1730] p-6;
   }
   .glass {
-    @apply rounded-2xl border border-white/10 bg-white/[0.03];
+    @apply rounded-2xl border border-white/10 bg-white/[0.04];
   }
   .frame {
-    @apply border-gold/30;
+    @apply border-white/10;
   }
   .eyebrow {
-    @apply text-xs font-medium uppercase tracking-[0.22em] text-gold;
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-[#4c9fff];
   }
   .label {
     @apply mb-1.5 block text-sm text-mute;
@@ -74,7 +74,7 @@ a {
 }
 
 .nav-link[data-active="true"] {
-  @apply bg-gold/10 text-cream shadow-[inset_2px_0_0_#c6a36a];
+  @apply bg-[#4c9fff]/15 text-white shadow-[inset_2px_0_0_#4c9fff];
 }
 
 .progress-bar {

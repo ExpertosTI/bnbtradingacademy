@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { AppShell } from "@/components/app-shell";
+import { PlatformScene } from "@/components/platform-scene";
 import { campusProgress, currentLevelLabel } from "@/lib/access";
 import { getCurrentUser } from "@/lib/auth";
 import { ensureReminders } from "@/lib/automation";
@@ -10,8 +11,13 @@ export default async function AcademyLayout({ children }: { children: React.Reac
   if (!user) redirect("/login");
   ensureReminders(user.id);
   return (
-    <AppShell user={user} unread={unreadCount(user.id)} progress={campusProgress(user)} levelLabel={currentLevelLabel(user)}>
-      {children}
-    </AppShell>
+    <>
+      <div className="pointer-events-none fixed inset-0 opacity-30">
+        <PlatformScene />
+      </div>
+      <AppShell user={user} unread={unreadCount(user.id)} progress={campusProgress(user)} levelLabel={currentLevelLabel(user)}>
+        {children}
+      </AppShell>
+    </>
   );
 }

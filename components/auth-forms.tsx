@@ -19,7 +19,7 @@ export function LoginForm({ next }: { next: string }) {
         <input className="field" name="password" type="password" autoComplete="current-password" required />
       </label>
       {state.error && <p className="text-sm text-bad">{state.error}</p>}
-      <button className="btn-gold w-full" type="submit">Entrar al campus</button>
+      <button className="btn-gold w-full" type="submit">ENTRAR →</button>
     </form>
   );
 }
@@ -47,7 +47,7 @@ export function RegisterForm() {
           ["intermediate", "Intermedio", "Puedes validar el Nivel 1. Si no, estudias las lecciones."],
           ["advanced", "Avanzado", "Debes aprobar la validación. No abre la práctica al registrarte."],
         ].map(([value, title, copy]) => (
-          <label key={value} className="flex cursor-pointer gap-3 rounded-2xl border border-white/10 p-4 hover:border-gold/40">
+          <label key={value} className="flex cursor-pointer gap-3 rounded-lg border border-white/20 p-4 hover:border-[#4c9fff]">
             <input className="mt-1" type="radio" name="experience" value={value} required />
             <span>
               <span className="block font-medium">{title}</span>
@@ -61,7 +61,7 @@ export function RegisterForm() {
         Acepto términos, privacidad, cancelación y el aviso de riesgo. Esta formación no garantiza ganancias.
       </label>
       {state.error && <p className="text-sm text-bad">{state.error}</p>}
-      <button className="btn-gold w-full" type="submit">Crear cuenta y ver el pago</button>
+      <button className="btn-gold w-full" type="submit">EMPEZAR →</button>
     </form>
   );
 }
