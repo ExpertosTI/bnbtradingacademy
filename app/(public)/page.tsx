@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandMark } from "@/components/brand-mark";
 import { OfferClock } from "@/components/offer-clock";
 import { money } from "@/lib/format";
 import { currentOffer } from "@/lib/offer";
@@ -12,11 +13,8 @@ export default function HomePage() {
     <div className="relative z-10 min-h-[calc(100vh-4.5rem)]">
       <div className="relative z-10 flex min-h-[calc(100vh-4.5rem)] items-center justify-center px-4 py-10">
         <section className="w-full max-w-[420px] overflow-hidden rounded-[22px] border border-white/10 bg-[#0b1730] text-white shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
-          <div className="flex items-center justify-center bg-[#12243f] px-6 py-4">
-            <p className="text-2xl font-bold tracking-tight">
-              <span className="mr-2 inline-block rounded-md bg-[#3b82f6] px-2 py-0.5 text-white">B&amp;B</span>
-              Academy
-            </p>
+          <div className="flex flex-col items-center bg-[#12243f] px-6 py-6">
+            <BrandMark size={148} priority />
           </div>
           <div className="px-6 pb-7 pt-6 text-center">
             <h1 className="text-[28px] font-bold leading-tight">Aparta tu cupo</h1>

@@ -30,6 +30,10 @@ export function PlatformScene() {
             ))}
           </div>
           <div className="relative bg-[#0c1830]">
+            <div
+              className="absolute bottom-8 right-8 h-36 w-36 bg-contain bg-center bg-no-repeat opacity-30"
+              style={{ backgroundImage: "url(/brand/logo.png)" }}
+            />
             <div className="absolute inset-x-8 bottom-16 top-10 flex items-end gap-3">
               {candles.map((height, index) => (
                 <span

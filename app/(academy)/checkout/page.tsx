@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { BrandMark } from "@/components/brand-mark";
 import { confirmPaymentAction } from "@/lib/actions/billing";
 import { getCurrentUser } from "@/lib/auth";
 import { courseAccess, membershipGrants, membershipOf } from "@/lib/access";
@@ -31,7 +32,8 @@ export default async function CheckoutPage() {
   const card = cardPaymentsReady();
   return (
     <div className="mx-auto max-w-2xl">
-      <p className="eyebrow">Checkout</p>
+      <BrandMark size={72} />
+      <p className="eyebrow mt-6">Checkout</p>
       <h1 className="mt-3 font-serif text-5xl">Esto es lo que pagas hoy.</h1>
       <div className="card mt-8 space-y-3">
         {lines.map((line) => (

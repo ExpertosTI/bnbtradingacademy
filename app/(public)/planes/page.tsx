@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandMark } from "@/components/brand-mark";
 import { OfferPanel } from "@/components/offer-panel";
 import { money } from "@/lib/format";
 import { currentOffer } from "@/lib/offer";
@@ -15,7 +16,8 @@ export default function PlanesPage() {
 
   return (
     <div className="relative z-10 mx-auto max-w-5xl px-5">
-      <p className="eyebrow">Membresía</p>
+      <BrandMark size={84} />
+      <p className="eyebrow mt-6">Membresía</p>
       <h1 className="mt-3 max-w-3xl font-serif text-5xl leading-[0.95] md:text-7xl">Aparta el cupo en {entry}. Después vale {money(offer.listCents, settings.currency)}.</h1>
       <div className="mt-10 max-w-xl">
         <OfferPanel />

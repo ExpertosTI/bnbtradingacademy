@@ -1,4 +1,5 @@
 import { RegisterForm } from "@/components/auth-forms";
+import { BrandMark } from "@/components/brand-mark";
 import { OfferPanel } from "@/components/offer-panel";
 
 export const metadata = { title: "Registro" };
@@ -7,7 +8,8 @@ export default function RegistroPage() {
   return (
     <div className="relative z-10 mx-auto grid max-w-5xl gap-10 px-5 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
       <div>
-        <p className="eyebrow">Diagnóstico</p>
+        <BrandMark size={88} />
+        <p className="eyebrow mt-6">Diagnóstico</p>
         <h1 className="mt-3 font-serif text-5xl leading-[0.95] md:text-6xl">Aparta el cupo. El sistema decide qué se abre.</h1>
         <div className="mt-6">
           <OfferPanel />

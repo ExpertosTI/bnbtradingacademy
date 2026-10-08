@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Bell, BookOpen, CreditCard, GraduationCap, LayoutDashboard, LogOut, MessagesSquare, Radio, Shield, SunMedium, UserRound } from "lucide-react";
+import { BrandMark } from "@/components/brand-mark";
 import { logoutAction } from "@/lib/actions/auth";
 import type { User } from "@/lib/db";
 
@@ -37,9 +38,9 @@ export function AppShell({
   return (
     <div className="relative z-10 mx-auto min-h-screen max-w-[1440px] lg:grid lg:grid-cols-[240px_1fr]">
       <aside className="hidden border-r border-white/10 bg-[#0b1730] px-4 py-6 lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col">
-        <Link href="/dashboard" className="px-2 text-xl font-bold text-white">
-          <span className="mr-2 inline-block rounded-md bg-[#3b82f6] px-2 py-0.5">B&amp;B</span>
-          Academy
+        <Link href="/dashboard" className="flex flex-col items-center gap-3 px-2 text-center">
+          <BrandMark size={96} />
+          <span className="text-[11px] font-semibold tracking-[0.18em] text-white/80">TRADING ACADEMY</span>
         </Link>
         <div className="mt-8 px-2">
           <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-mute">{levelLabel}</p>
@@ -68,9 +69,8 @@ export function AppShell({
       </aside>
       <div className="flex min-h-screen flex-col">
         <header className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-4 md:px-8">
-          <Link href="/dashboard" className="text-xl font-bold text-white lg:hidden">
-            <span className="mr-2 inline-block rounded-md bg-[#3b82f6] px-2 py-0.5">B&amp;B</span>
-            Academy
+          <Link href="/dashboard" className="lg:hidden">
+            <BrandMark size={42} />
           </Link>
           <p className="hidden text-sm text-mute lg:block">{user.name}</p>
           <div className="ml-auto flex items-center gap-4 text-sm">

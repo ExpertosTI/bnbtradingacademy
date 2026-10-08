@@ -21,6 +21,11 @@ export const metadata: Metadata = {
     siteName: "B&B Trading Academy",
     locale: "es_DO",
     type: "website",
+    images: [{ url: "/brand/logo.png", width: 512, height: 512, alt: "B&B Trading Academy" }],
+  },
+  icons: {
+    icon: "/brand/logo.png",
+    apple: "/brand/logo.png",
   },
 };
 

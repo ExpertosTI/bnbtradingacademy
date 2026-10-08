@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { BrandMark } from "@/components/brand-mark";
 import { Countdown } from "@/components/countdown";
 import { OfferPanel } from "@/components/offer-panel";
 import { Reveal } from "@/components/reveal";
@@ -48,10 +49,13 @@ export default async function DashboardPage() {
       <Reveal>
       <section className="frame card overflow-hidden">
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
+          <div className="flex items-start gap-4">
+            <BrandMark size={72} className="mt-1 shrink-0" />
+            <div>
             <p className="eyebrow">Campus</p>
             <h1 className="mt-3 text-5xl font-medium tracking-[-0.05em] md:text-6xl">Hola, {user.name.split(" ")[0]}.</h1>
             <p className="mt-4 text-mute">{experienceLabel(user.experience)} · {currentLevelLabel(user)}</p>
+            </div>
           </div>
           <div className="text-right">
             <p className="font-mono text-6xl text-good">{pct}%</p>
