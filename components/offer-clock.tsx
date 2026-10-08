@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 const labels = ["Días", "Horas", "Min", "Seg"];
 
-export function OfferClock({ target }: { target: string }) {
+export function OfferClock({ target, light = false }: { target: string; light?: boolean }) {
   const router = useRouter();
   const [parts, setParts] = useState(["00", "00", "00", "00"]);
   const [done, setDone] = useState(false);
@@ -37,12 +37,12 @@ export function OfferClock({ target }: { target: string }) {
 
   return (
     <div>
-      <p className="text-xs uppercase tracking-[0.22em] text-gold">{done ? "Oferta cerrada" : "La oferta cierra en"}</p>
+      <p className={`text-xs uppercase tracking-[0.22em] ${light ? "text-white/60" : "text-gold"}`}>{done ? "Oferta cerrada" : "La oferta cierra en"}</p>
       <div className="mt-4 grid grid-cols-4 gap-3">
         {labels.map((label, index) => (
           <div key={label} className="text-center">
-            <p className="font-serif text-5xl leading-none text-gold2 sm:text-6xl">{parts[index]}</p>
-            <p className="mt-2 text-[11px] uppercase tracking-[0.16em] text-mute">{label}</p>
+            <p className={`font-serif text-5xl leading-none sm:text-6xl ${light ? "text-white" : "text-gold2"}`}>{parts[index]}</p>
+            <p className={`mt-2 text-[11px] uppercase tracking-[0.16em] ${light ? "text-white/50" : "text-mute"}`}>{label}</p>
           </div>
         ))}
       </div>

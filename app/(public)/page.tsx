@@ -1,174 +1,51 @@
 import Link from "next/link";
-import { MarketDesk } from "@/components/market-desk";
-import { OfferPanel } from "@/components/offer-panel";
-import { Reveal } from "@/components/reveal";
-import { Ticker } from "@/components/ticker";
+import { OfferClock } from "@/components/offer-clock";
+import { PlatformScene } from "@/components/platform-scene";
 import { money } from "@/lib/format";
 import { currentOffer } from "@/lib/offer";
-import { getSettings, listLevels, listTeachers } from "@/lib/db";
 
 export default function HomePage() {
-  const settings = getSettings();
   const offer = currentOffer();
-  const levels = listLevels();
-  const teachers = listTeachers();
-  const entry = money(offer.priceCents, settings.currency);
-  const monthly = money(settings.monthly_price_cents, settings.currency);
-  const flow = [
-    ["01", "Cuenta", "Datos, experiencia declarada y términos. Declararte avanzado no abre la mesa."],
-    ["02", "Aparta", "Ves el valor del cupo, la oferta que sigue abierta y los lugares que quedan antes de pagar."],
-    ["03", "Estudio", "Lecciones protegidas. El progreso queda en tu perfil, no en un enlace suelto."],
-    ["04", "Examen", "Banco administrable, nota, intentos y desbloqueo automático del siguiente nivel."],
-    ["05", "Mesa", "Lunes a viernes dentro del campus. El domingo, el repaso y el ranking."],
-  ];
-  const paths = [
-    ["01", "Principiante", "Empiezas en Nivel 1. Sin los videos, el examen no se abre."],
-    ["02", "Intermedio", "Puedes validar el Nivel 1. Si no apruebas, las lecciones pasan a ser obligatorias."],
-    ["03", "Avanzado", "La práctica exige la validación de la academia. Elegir avanzado no la salta."],
-  ];
+  const price = money(offer.priceCents, offer.currency);
+  const list = money(offer.listCents, offer.currency);
 
   return (
-    <div className="relative z-10">
-      <section className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-8 pt-6 lg:grid-cols-[1.05fr_0.95fr] lg:pt-10">
-        <Reveal>
-          <p className="eyebrow">Campus privado · {settings.timezone.replace(/_/g, " ")}</p>
-          <h1 className="mt-4 max-w-xl font-serif text-5xl leading-[0.95] text-cream sm:text-7xl">
-            La mesa está en el <span className="italic text-gold">campus</span>.
-          </h1>
-          <p className="mt-6 max-w-md text-lg leading-relaxed text-mute">
-            El cupo vale {money(offer.listCents, settings.currency)}. Quien aparta ahora lo asegura en {money(offer.priceCents, settings.currency)}, mientras queden lugares y el reloj siga abierto.
-          </p>
-          <div className="mt-8">
-            <OfferPanel />
+    <div className="relative min-h-[calc(100vh-4.5rem)]">
+      <PlatformScene />
+      <div className="relative z-10 flex min-h-[calc(100vh-4.5rem)] items-center justify-center px-4 py-10">
+        <section className="w-full max-w-[420px] overflow-hidden rounded-[22px] border border-white/10 bg-[#0b1730] text-white shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
+          <div className="flex items-center justify-center bg-[#12243f] px-6 py-4">
+            <p className="text-2xl font-bold tracking-tight">
+              <span className="mr-2 inline-block rounded-md bg-[#3b82f6] px-2 py-0.5 text-white">B&amp;B</span>
+              Academy
+            </p>
           </div>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link className="btn-gold" href="/registro">Apartar mi cupo</Link>
-            <Link className="btn-ghost" href="/planes">Ver cómo se paga</Link>
-          </div>
-          <p className="mt-6 max-w-sm text-xs leading-relaxed text-mute">Formación. No hay garantía de ganancia, fondeo ni resultado.</p>
-        </Reveal>
-        <Reveal delay={0.12}>
-          <MarketDesk
-            entry={entry}
-            monthly={monthly}
-            live={`${settings.live_start}–${settings.live_end}`}
-            review={settings.review_start}
-          />
-        </Reveal>
-      </section>
-
-      <Ticker />
-
-      <section id="programa" className="mx-auto max-w-6xl px-5 pt-20">
-        <Reveal>
-          <p className="eyebrow">El flujo</p>
-          <h2 className="mt-3 max-w-2xl text-4xl font-medium tracking-[-0.04em] md:text-5xl">Cinco pasos. Nadie manda el enlace a mano.</h2>
-        </Reveal>
-        <div className="relative mt-14 grid gap-10 md:grid-cols-5 md:gap-6">
-          <div className="pointer-events-none absolute left-0 right-0 top-[3px] hidden h-px bg-white/15 md:block" />
-          {flow.map(([n, title, copy], index) => (
-            <Reveal key={n} delay={index * 0.05}>
-              <article>
-                <span className="relative z-10 flex h-2 w-2 rounded-full bg-good shadow-[0_0_0_6px_#050506]" />
-                <p className="mt-5 font-mono text-xs text-good">{n}</p>
-                <h3 className="mt-2 text-2xl font-medium tracking-tight">{title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-mute">{copy}</p>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <section id="niveles" className="mx-auto mt-28 max-w-6xl px-5">
-        <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="eyebrow">Ruta académica</p>
-              <h2 className="mt-3 text-4xl font-medium tracking-[-0.04em] md:text-5xl">Tres niveles. Luego la mesa.</h2>
+          <div className="px-6 pb-7 pt-6 text-center">
+            <h1 className="text-[28px] font-bold leading-tight">Aparta tu cupo</h1>
+            <p className="mx-auto mt-2 max-w-[16rem] text-[15px] leading-snug text-white/85">
+              Hoy {price}. El valor del cupo es {list}.
+            </p>
+            <div className="mt-6">
+              {offer.open ? <OfferClock target={offer.endsAt} light /> : <p className="text-sm text-white/70">La oferta de {price} ya cerró.</p>}
             </div>
-            <p className="max-w-xs text-sm leading-relaxed text-mute">Cada etapa se abre al aprobar la anterior. El examen no circula por chat.</p>
-          </div>
-        </Reveal>
-        <div className="mt-10 divide-y divide-white/10 border-y border-white/10">
-          {levels.map((level, index) => (
-            <Reveal key={level.id}>
-              <article className="grid gap-3 py-7 md:grid-cols-[120px_1fr_180px] md:items-center">
-                <p className="font-mono text-sm text-good">{String(index + 1).padStart(2, "0")}</p>
-                <div>
-                  <h3 className="text-3xl font-medium tracking-tight">{level.name}</h3>
-                  <p className="mt-2 max-w-xl text-mute">{level.summary}</p>
-                </div>
-                <p className="font-mono text-xs uppercase tracking-[0.16em] text-mute">{level.practical ? "Live + domingo" : "Lecciones + examen"}</p>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto mt-24 max-w-6xl px-5">
-        <div className="grid gap-px overflow-hidden rounded-2xl border border-gold/20 bg-gold/20 md:grid-cols-3">
-        {paths.map(([n, title, copy]) => (
-          <article key={title} className="bg-[#100e0c] px-6 py-8 md:px-8">
-            <p className="font-mono text-xs text-good">{n}</p>
-            <h3 className="mt-4 text-3xl font-medium tracking-tight">{title}</h3>
-            <p className="mt-3 leading-relaxed text-mute">{copy}</p>
-          </article>
-        ))}
-        </div>
-      </section>
-
-      <section id="mesa" className="mx-auto mt-24 grid max-w-6xl gap-4 px-5 lg:grid-cols-[1.15fr_0.85fr]">
-        <Reveal>
-          <article className="card relative min-h-[280px]">
-            <p className="eyebrow">Lunes a viernes</p>
-            <h2 className="mt-4 max-w-md text-4xl font-medium tracking-[-0.04em] md:text-6xl">Trading en vivo, dentro del campus.</h2>
-            <p className="mt-6 max-w-md leading-relaxed text-mute">
-              Cuenta regresiva, botón de entrada y acceso controlado en servidor. Si te falta nivel o membresía, ves exactamente qué te falta.
+            <p className="mt-5 text-sm text-white/70">
+              {offer.open ? `Quedan ${offer.left} de ${offer.seats} lugares` : "Cupo de oferta cerrado"}
             </p>
-          </article>
-        </Reveal>
-        <Reveal delay={0.08}>
-          <article className="card flex min-h-[320px] flex-col justify-between">
-            <div>
-              <p className="eyebrow">Domingo</p>
-              <h2 className="mt-4 text-4xl font-medium tracking-tight">Repaso de la semana.</h2>
+            <div className="mx-auto mt-3 h-1 max-w-[240px] overflow-hidden rounded-full bg-white/10">
+              <span className="block h-full bg-[#3b82f6]" style={{ width: `${Math.round((offer.taken / offer.seats) * 100)}%` }} />
             </div>
-            <p className="mt-6 leading-relaxed text-mute">
-              Operaciones, preguntas, aprobados y el top académico. Un premio, si lo hay, lo confirma una persona. No sale solo ni representa una ganancia.
+            <Link href="/registro" className="mt-6 flex h-12 items-center justify-center rounded-lg bg-[#4c9fff] text-sm font-bold tracking-wide text-white hover:bg-[#3b8df0]">
+              EMPEZAR →
+            </Link>
+            <p className="mt-5 text-left text-[12px] leading-relaxed text-white/75">
+              Al continuar aceptas los <Link className="text-[#4c9fff]" href="/legal/terminos">Términos</Link> y la <Link className="text-[#4c9fff]" href="/legal/privacidad">Política de privacidad</Link>. La membresía de {money(offer.monthlyCents, offer.currency)} cada 30 días se cobra el mismo día. Esta formación no garantiza ganancias, fondeo ni resultados. <Link className="text-[#4c9fff]" href="/legal/riesgo">Aviso de riesgo</Link>.
             </p>
-          </article>
-        </Reveal>
-      </section>
-
-      <section className="mx-auto mt-24 max-w-6xl px-5">
-        <p className="eyebrow">Mesa de profesores</p>
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
-          {teachers.map((teacher) => (
-            <article key={teacher.id} className="card">
-              <p className="font-mono text-xs text-good">{teacher.name.replace("Profesor de ", "").slice(0, 1).toUpperCase()}</p>
-              <h3 className="mt-4 text-2xl font-medium tracking-tight">{teacher.name}</h3>
-              <p className="mt-3 leading-relaxed text-mute">{teacher.bio}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto mt-24 max-w-6xl px-5">
-        <div className="card flex flex-col justify-between gap-8 md:flex-row md:items-end">
-          <div>
-            <p className="eyebrow">Oferta de cupo</p>
-            <h2 className="mt-3 font-mono text-4xl tracking-tight md:text-5xl">
-              <span className="mr-3 text-2xl text-mute line-through">{money(offer.listCents, settings.currency)}</span>
-              {entry}
-            </h2>
-            <p className="mt-2 font-mono text-xs uppercase tracking-[0.16em] text-good">para quien aparta ahora · luego {monthly} / 30 días</p>
-            <p className="mt-5 max-w-xl leading-relaxed text-mute">
-              Al cerrar el reloj o agotarse los {offer.seats} lugares, la inscripción pasa a {money(offer.listCents, settings.currency)}. Quien ya pagó conserva el monto de su plan.
+            <p className="mt-4 text-sm">
+              <Link className="text-white/80 underline" href="/login">¿Ya tiene una cuenta?</Link>
             </p>
           </div>
-          <Link className="btn-gold shrink-0" href="/registro">Apartar mi cupo</Link>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 }

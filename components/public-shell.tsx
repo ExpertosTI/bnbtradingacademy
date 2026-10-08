@@ -3,18 +3,17 @@ import { logoutAction } from "@/lib/actions/auth";
 import type { User } from "@/lib/db";
 
 const links = [
-  ["Programa", "/#programa"],
-  ["Ruta", "/#niveles"],
-  ["Mesa", "/#mesa"],
   ["Planes", "/planes"],
+  ["Aviso de riesgo", "/legal/riesgo"],
 ];
 
 export function PublicHeader({ user }: { user: User | null }) {
   return (
-    <header className="sticky top-0 z-30 border-b border-gold/20 bg-[#0c0b0a]/85 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3">
-      <Link href="/" className="font-serif text-2xl tracking-tight text-cream">
-        B&amp;B <span className="italic text-gold">Academy</span>
+    <header className="sticky top-0 z-30 bg-transparent">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4">
+      <Link href="/" className="text-xl font-bold tracking-tight text-white">
+        <span className="mr-2 inline-block rounded-md bg-[#3b82f6] px-2 py-0.5">B&amp;B</span>
+        Academy
       </Link>
       <nav className="hidden items-center gap-7 text-sm text-mute md:flex">
         {links.map(([label, href]) => (
@@ -36,7 +35,7 @@ export function PublicHeader({ user }: { user: User | null }) {
         ) : (
           <>
             <Link className="btn-ghost" href="/login">Ingresar</Link>
-            <Link className="btn-gold" href="/registro">Apartar cupo</Link>
+            <Link className="rounded-lg bg-[#4c9fff] px-4 py-2 text-sm font-bold text-white" href="/registro">EMPEZAR</Link>
           </>
         )}
       </div>
@@ -47,7 +46,7 @@ export function PublicHeader({ user }: { user: User | null }) {
 
 export function PublicFooter() {
   return (
-    <footer className="relative z-10 mx-auto mt-24 max-w-6xl border-t border-white/10 px-5 py-12 text-sm text-mute">
+    <footer className="relative z-10 mx-auto max-w-3xl px-5 py-8 text-center text-xs leading-relaxed text-white/55">
       <div className="flex flex-col justify-between gap-8 md:flex-row">
         <div>
           <p className="font-serif text-2xl text-cream">B&amp;B Trading Academy</p>
