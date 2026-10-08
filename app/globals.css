@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 html {
@@ -12,8 +12,10 @@ html {
 
 body {
   min-height: 100vh;
-  background: #f3f0e8;
-  color: #1c1917;
+  background:
+    radial-gradient(900px 420px at 80% -10%, rgba(198, 163, 106, 0.16), transparent 55%),
+    #0c0b0a;
+  color: #f6f1e7;
 }
 
 a {
@@ -21,40 +23,8 @@ a {
 }
 
 ::selection {
-  background: #1f4b3a;
-  color: #f7f4ee;
-}
-
-.font-serif,
-.font-mono,
-.italic {
-  font-family: "Plus Jakarta Sans", sans-serif;
-  font-style: normal;
-  letter-spacing: -0.03em;
-}
-
-.border-white\/5,
-.border-white\/10,
-.border-white\/15,
-.border-white\/25,
-.border-gold\/25,
-.border-gold\/30,
-.border-gold\/40,
-.border-gold\/50 {
-  border-color: #e4dfd4;
-}
-
-.divide-white\/5 > :not([hidden]) ~ :not([hidden]),
-.divide-white\/10 > :not([hidden]) ~ :not([hidden]) {
-  border-color: #e4dfd4;
-}
-
-.bg-black,
-.bg-black\/20,
-.bg-black\/40,
-.bg-black\/50,
-.bg-ink\/90 {
-  background-color: #fffcf7;
+  background: #c6a36a;
+  color: #0c0b0a;
 }
 
 @keyframes rise {
@@ -63,8 +33,8 @@ a {
 }
 
 @keyframes pulse-gold {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(31, 75, 58, 0.28); }
-  50% { box-shadow: 0 0 0 8px rgba(31, 75, 58, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(198, 163, 106, 0.45); }
+  50% { box-shadow: 0 0 0 8px rgba(198, 163, 106, 0); }
 }
 
 .rise {
@@ -73,28 +43,28 @@ a {
 
 @layer components {
   .btn-gold {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-good px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#16382b] disabled:cursor-wait disabled:opacity-60;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-gold2 disabled:cursor-wait disabled:opacity-60;
   }
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-[#d9d3c7] bg-white px-5 py-2.5 text-sm font-medium text-ink transition hover:border-good hover:text-good;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-gold/40 bg-transparent px-5 py-2.5 text-sm text-cream transition hover:border-gold hover:bg-gold/10;
   }
   .btn-danger {
-    @apply inline-flex items-center justify-center rounded-xl border border-bad/30 px-4 py-2 text-sm text-bad;
+    @apply inline-flex items-center justify-center rounded-full border border-bad/40 px-4 py-2 text-sm text-bad;
   }
   .field {
-    @apply w-full rounded-xl border border-[#d9d3c7] bg-white px-3 py-2.5 text-sm text-ink outline-none transition focus:border-good;
+    @apply w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-cream outline-none transition focus:border-gold;
   }
   .card {
-    @apply relative rounded-2xl border border-[#e4dfd4] bg-white p-6 shadow-[0_16px_40px_rgba(28,25,23,0.05)];
+    @apply relative rounded-2xl border border-gold/20 bg-panel p-6;
   }
   .glass {
-    @apply rounded-2xl border border-[#e4dfd4] bg-white;
+    @apply rounded-2xl border border-white/10 bg-white/[0.03];
   }
   .frame {
-    @apply border-[#e4dfd4];
+    @apply border-gold/30;
   }
   .eyebrow {
-    @apply text-sm font-semibold text-good;
+    @apply text-xs font-medium uppercase tracking-[0.22em] text-gold;
   }
   .label {
     @apply mb-1.5 block text-sm text-mute;
@@ -102,19 +72,19 @@ a {
 }
 
 .nav-link {
-  @apply flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-mute transition hover:bg-[#f3f0e8] hover:text-ink;
+  @apply flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-mute transition hover:bg-white/5 hover:text-cream;
 }
 
 .nav-link[data-active="true"] {
-  @apply bg-[#e7f2ec] font-medium text-ink;
+  @apply bg-gold/10 text-cream shadow-[inset_2px_0_0_#c6a36a];
 }
 
 .progress-bar {
-  @apply h-1.5 overflow-hidden rounded-full bg-[#e7e2d8];
+  @apply h-px overflow-hidden bg-white/15;
 }
 
 .progress-bar > span {
-  @apply block h-full rounded-full bg-good;
+  @apply block h-full bg-gold;
 }
 
 .live-dot {
@@ -123,7 +93,7 @@ a {
 }
 
 .live-dot.is-good {
-  @apply bg-good;
+  @apply bg-gold;
 }
 
 @media (prefers-reduced-motion: reduce) {

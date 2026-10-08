@@ -32,8 +32,8 @@ export default function HomePage() {
       <section className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-8 pt-6 lg:grid-cols-[1.05fr_0.95fr] lg:pt-10">
         <Reveal>
           <p className="eyebrow">Campus privado · {settings.timezone.replace(/_/g, " ")}</p>
-          <h1 className="mt-4 max-w-xl text-4xl font-semibold leading-tight text-ink sm:text-6xl">
-            La mesa está en el campus.
+          <h1 className="mt-4 max-w-xl font-serif text-5xl leading-[0.95] text-cream sm:text-7xl">
+            La mesa está en el <span className="italic text-gold">campus</span>.
           </h1>
           <p className="mt-6 max-w-md text-lg leading-relaxed text-mute">
             El cupo vale {money(offer.listCents, settings.currency)}. Quien aparta ahora lo asegura en {money(offer.priceCents, settings.currency)}, mientras queden lugares y el reloj siga abierto.
@@ -106,9 +106,9 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto mt-24 max-w-6xl px-5">
-        <div className="grid gap-px overflow-hidden rounded-2xl border border-[#e4dfd4] bg-[#e4dfd4] md:grid-cols-3">
+        <div className="grid gap-px overflow-hidden rounded-2xl border border-gold/20 bg-gold/20 md:grid-cols-3">
         {paths.map(([n, title, copy]) => (
-          <article key={title} className="bg-[#fffcf7] px-6 py-8 md:px-8">
+          <article key={title} className="bg-[#100e0c] px-6 py-8 md:px-8">
             <p className="font-mono text-xs text-good">{n}</p>
             <h3 className="mt-4 text-3xl font-medium tracking-tight">{title}</h3>
             <p className="mt-3 leading-relaxed text-mute">{copy}</p>

@@ -35,11 +35,11 @@ export function StudyPlayer({
   }, [playing, done, lessonId, cap]);
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-[#e4dfd4] bg-white shadow-[0_16px_40px_rgba(28,25,23,0.05)]">
+    <div className="overflow-hidden rounded-2xl border border-gold/20 bg-panel">
       {videoRef ? (
         <iframe className="aspect-video w-full" src={videoRef} allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen title="Lección" />
       ) : (
-        <div className="relative flex aspect-video flex-col items-center justify-center gap-5 bg-[#f7f4ee]">
+        <div className="relative flex aspect-video flex-col items-center justify-center gap-5 bg-[#100e0c]">
           <p className="eyebrow">Aula protegida</p>
           <button className="btn-gold relative z-10 px-8 py-3 text-base" type="button" onClick={() => setPlaying((value) => !value)}>
             {done ? "Lección registrada" : playing ? "Pausar estudio" : "Reproducir lección"}

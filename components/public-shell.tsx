@@ -11,10 +11,10 @@ const links = [
 
 export function PublicHeader({ user }: { user: User | null }) {
   return (
-    <header className="sticky top-0 z-30 border-b border-[#e4dfd4] bg-[#f3f0e8]/90 backdrop-blur-xl">
+    <header className="sticky top-0 z-30 border-b border-gold/20 bg-[#0c0b0a]/85 backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3">
-      <Link href="/" className="text-sm font-medium tracking-tight">
-        B&amp;B <span className="text-mute">Academy</span>
+      <Link href="/" className="font-serif text-2xl tracking-tight text-cream">
+        B&amp;B <span className="italic text-gold">Academy</span>
       </Link>
       <nav className="hidden items-center gap-7 text-sm text-mute md:flex">
         {links.map(([label, href]) => (

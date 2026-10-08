@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
+const labels = ["Días", "Horas", "Min", "Seg"];
+
 export function OfferClock({ target }: { target: string }) {
   const router = useRouter();
-  const [label, setLabel] = useState("Calculando el cierre");
+  const [parts, setParts] = useState(["00", "00", "00", "00"]);
   const [done, setDone] = useState(false);
 
   useEffect(() => {
@@ -14,8 +16,8 @@ export function OfferClock({ target }: { target: string }) {
     const tick = () => {
       const diff = end - Date.now();
       if (diff <= 0) {
+        setParts(["00", "00", "00", "00"]);
         setDone(true);
-        setLabel("La oferta ya cerró");
         if (!refreshed) {
           refreshed = true;
           router.refresh();
@@ -26,8 +28,7 @@ export function OfferClock({ target }: { target: string }) {
       const hours = Math.floor((diff % 86400000) / 3600000);
       const minutes = Math.floor((diff % 3600000) / 60000);
       const seconds = Math.floor((diff % 60000) / 1000);
-      const dayLabel = days === 1 ? "1 día" : `${days} días`;
-      setLabel(`${dayLabel}, ${hours} h ${minutes} min ${seconds} s`);
+      setParts([days, hours, minutes, seconds].map((n) => String(n).padStart(2, "0")));
     };
     tick();
     const id = setInterval(tick, 1000);
@@ -35,10 +36,16 @@ export function OfferClock({ target }: { target: string }) {
   }, [target, router]);
 
   return (
-    <p className="text-sm text-[#d5e5dc]">
-      <span className="font-semibold text-white">{done ? "Oferta cerrada" : "Cierra en"}</span>
-      {" · "}
-      {label}
-    </p>
+    <div>
+      <p className="text-xs uppercase tracking-[0.22em] text-gold">{done ? "Oferta cerrada" : "La oferta cierra en"}</p>
+      <div className="mt-4 grid grid-cols-4 gap-3">
+        {labels.map((label, index) => (
+          <div key={label} className="text-center">
+            <p className="font-serif text-5xl leading-none text-gold2 sm:text-6xl">{parts[index]}</p>
+            <p className="mt-2 text-[11px] uppercase tracking-[0.16em] text-mute">{label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
